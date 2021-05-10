@@ -5,11 +5,11 @@ BEGIN;
 
 CREATE TABLE public.users
 (
-    id integer,
-    email character varying,
-    password character varying,
-    create_date date,
-    update_date date,
+    id integer NOT NULL,
+    email character varying NOT NULL,
+    password character varying NOT NULL,
+    create_date date NOT NULL,
+    update_date date NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -48,7 +48,7 @@ CREATE TABLE public.employers
     PRIMARY KEY (employer_id)
 );
 
-CREATE TABLE public.verification_jobskeer
+CREATE TABLE public.verification_jobskeers
 (
     id integer NOT NULL,
     jobskeer_id integer NOT NULL,
@@ -57,19 +57,32 @@ CREATE TABLE public.verification_jobskeer
     PRIMARY KEY (id)
 );
 
-CREATE TABLE public.verification_of_employers
+CREATE TABLE public.verification_employers
 (
     id integer NOT NULL,
     employer_id integer NOT NULL,
     employee_id integer NOT NULL,
     is_verified boolean NOT NULL,
     verification_date date NOT NULL,
+    is_confirm boolean NOT NULL,
     PRIMARY KEY (id)
 );
 
-ALTER TABLE public.employees
+ALTER TABLE public.verification_jobskeers
+    ADD FOREIGN KEY (jobskeer_id)
+    REFERENCES public.jobseekers (jobskeer_id)
+    NOT VALID;
+
+
+ALTER TABLE public.verification_employers
+    ADD FOREIGN KEY (employer_id)
+    REFERENCES public.employers (employer_id)
+    NOT VALID;
+
+
+ALTER TABLE public.verification_employers
     ADD FOREIGN KEY (employee_id)
-    REFERENCES public.users (id)
+    REFERENCES public.employees (employee_id)
     NOT VALID;
 
 
@@ -85,21 +98,9 @@ ALTER TABLE public.employers
     NOT VALID;
 
 
-ALTER TABLE public.verification_jobskeer
-    ADD FOREIGN KEY (jobskeer_id)
-    REFERENCES public.jobseekers (jobskeer_id)
-    NOT VALID;
-
-
-ALTER TABLE public.verification_of_employers
-    ADD FOREIGN KEY (employer_id)
-    REFERENCES public.employers (employer_id)
-    NOT VALID;
-
-
-ALTER TABLE public.verification_of_employers
+ALTER TABLE public.employees
     ADD FOREIGN KEY (employee_id)
-    REFERENCES public.employees (employee_id)
+    REFERENCES public.users (id)
     NOT VALID;
 
 END;
