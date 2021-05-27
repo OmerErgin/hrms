@@ -13,20 +13,21 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="job_positions")
+@Table(name="verification_jobseekers")
 @AllArgsConstructor
 @NoArgsConstructor
-public class JobPosition {
+public class VerificationJobSeeker {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="name")
-	private String name;
+	@Column(name="jobseeker_id")
+	private int jobseekerId;
 	
-	@Column(name="is_active")
-	private boolean isActive;
+	@Column(name="is_verified",columnDefinition = "boolean default false")
+	private boolean isVerified;
 	
+
 }
