@@ -1,5 +1,8 @@
 package omerergin.hrms.business.concretes;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.stereotype.Service;
 
 import omerergin.hrms.business.abstracts.EmployerRegisterService;
@@ -57,12 +60,27 @@ public class EmployerRegisterManager implements EmployerRegisterService {
 		}
 		}
 	
+	@Override
+	public Result eMailFormat(Employer employer) {
+		Pattern pattern =Pattern.compile("^([a-zA-Z0-9+_.-])+@([a-zA-Z0-9-]+).([a-z]{2,20})(.[a-z]{2,20})?$");
+		Matcher matcher=pattern.matcher(employer.getEmail());
+		if(matcher.matches()) {
+		return new SuccessResult();}
+		else {
+			return new ErrorResult("Check format of email!");
+		}
+	}
+	
 
 	@Override
 	public Result registerRules(Employer employer, String password) {
 		if(!emptyValue(employer, password).isSuccess()) {
 			return new ErrorResult(emptyValue(employer, password).getMessage());
 		}
+		if(!eMailFormat(employer).isSuccess()) {
+			return new ErrorResult(eMailFormat(employer).getMessage());
+		}
+		
 		if(!emailWebsiteCheck(employer).isSuccess()) {
 			return new ErrorResult(emailWebsiteCheck(employer).getMessage());
 		}
@@ -72,7 +90,7 @@ public class EmployerRegisterManager implements EmployerRegisterService {
 		if(!confirmPassword(employer, password).isSuccess()) {
 			return new ErrorResult(confirmPassword(employer, password).getMessage());
 		}
-		
+
 		
 		else {
 			return new SuccessResult("Employer Registered");

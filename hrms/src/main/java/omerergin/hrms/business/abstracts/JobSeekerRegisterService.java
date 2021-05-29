@@ -8,5 +8,6 @@ public interface JobSeekerRegisterService {
 	Result emptyValue(JobSeeker jobSeeker,String confirmPassword);
 	Result mernisValidation(JobSeeker jobSeeker);
 	Result alreadyAccount(String identityId,String email);
+	Result eMailFormat(JobSeeker jobSeeker);
 	Result confirmPassword(JobSeeker jobSeeker, String password);
 }

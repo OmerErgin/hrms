@@ -1,10 +1,12 @@
 package omerergin.hrms.business.concretes;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import omerergin.hrms.business.abstracts.JobSeekerRegisterService;
-import omerergin.hrms.business.abstracts.UserService;
 import omerergin.hrms.core.utilities.adapters.FakeMernisAdapter;
 import omerergin.hrms.core.utilities.results.ErrorResult;
 import omerergin.hrms.core.utilities.results.Result;
@@ -69,6 +71,17 @@ public class JobSeekerRegisterManager implements JobSeekerRegisterService {
 			return new ErrorResult("Password did not mashed.");
 		}
 	}
+	
+	@Override
+	public Result eMailFormat(JobSeeker jobSeeker) {
+		Pattern pattern =Pattern.compile("^([a-zA-Z0-9+_.-])+@([a-zA-Z0-9-]+).([a-z]{2,20})(.[a-z]{2,20})?$");
+		Matcher matcher=pattern.matcher(jobSeeker.getEmail());
+		if(matcher.matches()) {
+		return new SuccessResult();}
+		else {
+			return new ErrorResult("Check format of email!");
+		}
+	}
 
 
 	@Override
@@ -76,6 +89,9 @@ public class JobSeekerRegisterManager implements JobSeekerRegisterService {
 		
 		if(!emptyValue(jobSeeker, confirmPassword).isSuccess()) {
 			return new ErrorResult(emptyValue(jobSeeker, confirmPassword).getMessage());
+		}
+		if(!eMailFormat(jobSeeker).isSuccess()) {
+			return new ErrorResult(eMailFormat(jobSeeker).getMessage());
 		}
 		if(!mernisValidation(jobSeeker).isSuccess()) {
 			return new ErrorResult(mernisValidation(jobSeeker).getMessage());

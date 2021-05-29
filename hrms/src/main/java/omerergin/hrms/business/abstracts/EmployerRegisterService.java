@@ -8,5 +8,6 @@ public interface EmployerRegisterService {
 	Result emailWebsiteCheck(Employer employer);
 	Result alreadyAccount(String email);
 	Result confirmPassword(Employer employer,String password);
+	Result eMailFormat(Employer employer);
 	Result registerRules(Employer employer,String password);
 }
