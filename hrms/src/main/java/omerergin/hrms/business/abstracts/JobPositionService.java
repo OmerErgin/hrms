@@ -9,4 +9,5 @@ import omerergin.hrms.entities.concretes.JobPosition;
 public interface JobPositionService {
 	DataResult<List<JobPosition>> getAll();
 	Result add(JobPosition jobPosition);
+	Result alreadyAccount(String name);
 }
