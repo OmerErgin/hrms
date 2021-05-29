@@ -14,9 +14,7 @@ import omerergin.hrms.core.utilities.results.SuccessDataResult;
 import omerergin.hrms.core.utilities.results.SuccessResult;
 import omerergin.hrms.core.utilities.verification.VerificationService;
 import omerergin.hrms.dataAccess.abstracts.JobSeekerDao;
-import omerergin.hrms.dataAccess.abstracts.VerificationJobSeekerDao;
 import omerergin.hrms.entities.concretes.JobSeeker;
-import omerergin.hrms.entities.concretes.VerificationJobSeeker;
 
 @Service
 public class JobSeekerManager implements JobSeekerService {

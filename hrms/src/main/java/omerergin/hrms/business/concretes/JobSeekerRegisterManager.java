@@ -89,7 +89,7 @@ public class JobSeekerRegisterManager implements JobSeekerRegisterService {
 		
 		
 		else {
-			return new SuccessResult("Registered");
+			return new SuccessResult(" Jobseeker Registered");
 		}
 		
 	}
