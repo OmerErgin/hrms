@@ -8,4 +8,5 @@ import omerergin.hrms.entities.concretes.JobSeeker;
 
 public interface JobSeekerDao extends JpaRepository<JobSeeker,Integer> {
 	List<JobSeeker> findByIdentityId(String identityId);
+	List<JobSeeker> findByEmail(String email);
 }
